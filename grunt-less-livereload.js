@@ -1,1 +1,33 @@
-grunt-less-livereload.js
+module.exports = function(grunt) {
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        less: {
+            development: {
+                files: [{
+                    expand: true,
+                    cwd: './app/css/less', //less文件的位置
+                    src: ['**/*.less'],  //目标文件
+                    dest: './app/css/dist', //编译完成的css的位置
+                    ext: '.css'   //编译完成的文件后缀名
+                }]
+            }
+        },
+        watch: {
+            options: {
+                livereload: true   //浏览器实时刷新
+            },
+            scripts: {
+                files: ['./app/css/less/**/*.less', './app/html/**/*.html'],  //实时刷新的监听文件
+                tasks: ['less'], //监听到以上文件发生变化就执行less任务
+                options: {
+                    spawn: false,
+                },
+            },
+        }
+    });
+ 
+    grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+
+    grunt.registerTask('default', ['watch']);
+}
