@@ -23,11 +23,22 @@ module.exports = function(grunt) {
                     spawn: false,
                 },
             },
+        },
+        connect: {
+            server: {
+                options: {
+                    protocol: 'http',
+                    port: 8000,
+                    // keepalive: true,
+                    //base: ['./app']  //注意根目录的配置
+                }
+            }
         }
     });
  
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
-    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('default', ['connect', 'watch']);
 }
